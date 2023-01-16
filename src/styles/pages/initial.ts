@@ -7,11 +7,10 @@ export const Container = styled.div`
     flex-direction: column;
     
     width: 100%;
-    height: 100vh;
 
-    h2 {
-
-        color: #000;
+    > h2 {
+        color: #EAE0D5;
+        margin-bottom: 10rem;
     }
 `;
 
@@ -20,8 +19,8 @@ export const Form = styled.form`
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    margin: 40%;
     width: inherit;
+    height: 100%;
 
     input {
         width: 100%;
@@ -38,7 +37,11 @@ export const QuantityContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-        
+    
+    p {
+        color: #C6AC8F
+    }
+
     input {
         color: #000;
         border-color: #FF6C3E;
@@ -68,33 +71,4 @@ export const Quantity = styled.div`
     align-items: center;
     justify-content: center;
     gap: 1rem;
-`
-
-export const Question = styled.div`
-    width: inherit;
-    display: flex;
-    gap: 0.25rem;
-    margin-top: 1rem;
-
-    input {
-        color: #000;
-        border-color: #FF6C3E;
-        background: #FFEBB220;
-
-        &:hover {
-            border-color: #FF6C3E;   
-        }
-    }
-        
-        button {
-            color: #FF6C3E;
-            display: flex;
-            width: 8rem;
-            transition: all 0.2s;
-
-           &:hover {
-                background: #FFEBB260;
-            }
-        }
-
 `

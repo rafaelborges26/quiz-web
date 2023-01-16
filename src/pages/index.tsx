@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { useState } from 'react'
-import { Container, Form, QuantityContainer, Quantity, Question } from '../styles/pages/initial'
+import { Question } from '../components/Question'
+import { Container, Form, QuantityContainer, Quantity } from '../styles/pages/initial'
 import { Heading, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, Input, Text, Button } from '@chakra-ui/react'
 
 
@@ -30,19 +31,8 @@ export default function Home() {
               </Quantity>
               </QuantityContainer>
             ) :
-            <>
-            <Heading as='h2' size='2xl'>1 de 5</Heading>
-              
-            <Question>
-              <Input
-                focusBorderColor='#FF6C3E'
-                placeholder='Faça uma boa pergunta'
-              />
-
-              <Button colorScheme='teal' size={'md'} variant='outline' onClick={() => setIsSelectedQuantity(true)} >
-                Confirmar
-              </Button>
-              </Question>
+            <>              
+            <Question />
             </> 
             }
           
