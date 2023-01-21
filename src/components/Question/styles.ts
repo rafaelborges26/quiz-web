@@ -36,10 +36,6 @@ export const FormQuestion = styled.form`
         color: #fff;
         border-color: #000;
         background: #5E503F;
-
-        & + input {
-            margin-top: 0.7rem;
-        }
         
 
         &:hover {
@@ -53,11 +49,19 @@ export const FormQuestion = styled.form`
             width: 8rem;
             transition: all 0.2s;
 
-            margin-top: 1rem;
+            margin-top: 0.3rem;
 
            &:hover {
                 background: #EAE0D580; //quase branco mais claro
             }
         }
 
+`
+
+export const ContainerInput = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    margin-bottom: 0.7rem;
 `
