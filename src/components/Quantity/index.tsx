@@ -4,20 +4,20 @@ import { Container, QuantityContainer } from './styles'
 import { QuantityProps } from './interfaces'
 import { Heading, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, Input, Text, Button, Textarea } from '@chakra-ui/react'
 
-export const Quantity = (  { selectedQuantity, setQuantitySelected } :QuantityProps ) => {
+export const Quantity = (  { setIsSelectedQuantity, setQuantitySelected, quantitySelected } :QuantityProps ) => {
 
     return (
             <Container>
               <Text fontSize='3xl'>Quantas perguntas você pretende fazer?</Text>
               <QuantityContainer>                            
-              <NumberInput width='20' size="md" defaultValue={5} min={1} max={10} onBlur={e => setQuantitySelected(e.target.value)}>
+              <NumberInput focusBorderColor={'#FF6C3E'} width='20' size="md" defaultValue={quantitySelected} min={1} max={10} onBlur={e => setQuantitySelected(e.target.value)}>
               <NumberInputField />
               <NumberInputStepper>
                 <NumberIncrementStepper />
                 <NumberDecrementStepper />
               </NumberInputStepper>
               </NumberInput>
-              <Button colorScheme='teal' size={'md'} variant='outline' onClick={() => selectedQuantity(true)} >
+              <Button colorScheme='teal' size={'md'} variant='outline' onClick={() => setIsSelectedQuantity(true)} >
                 Confirmar
               </Button>
               </QuantityContainer>

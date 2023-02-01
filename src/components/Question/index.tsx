@@ -1,5 +1,6 @@
 import Head from 'next/head'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
+import { useQuestions } from '../../contexts/QuestionsContext'
 import { useRouter } from 'next/router'
 import { QuestionProps, QuestionFieldsProps } from './interfaces'
 import { initialValuesQuestion } from './initialValues'
@@ -10,8 +11,8 @@ import { Container, FormQuestion, ContainerInput } from './styles'
 export const Question = ( { quantitySelected } :QuestionProps) => {
 
   const { push } = useRouter()
+  const { questions, setQuestions } = useQuestions()
 
-  const [questions, setQuestions] = useState<QuestionFieldsProps[]>([])
   const [question, setQuestion] = useState<QuestionFieldsProps>(initialValuesQuestion)
   const [quantityQuestionCurrent, setQuantityQuestionCurrent] = useState(1)
 
