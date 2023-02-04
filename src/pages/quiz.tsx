@@ -6,15 +6,24 @@ import { useState } from 'react'
 
 export default function Quiz() {
 
-  const { questions } = useQuestions()
+  const { questions, setQuestions } = useQuestions()
 
-  const [isChooseQuestion, setIsChooseQuestion] = useState(0)
-
+  const [isChooseQuestion, setIsChooseQuestion] = useState<'' | '1' | '2' | '3' | '4'>('')
+  const [questionIndex, setQuestionIndex] = useState(0)
   
-  const handleChooseQuestion = (question: number) => {
-    if(isChooseQuestion === question)
-      setIsChooseQuestion(0)
+  const handleChooseQuestion = (question: '1' | '2' | '3' | '4') => {
+    if(isChooseQuestion == question)
+      setIsChooseQuestion('')
     else setIsChooseQuestion(question)
+  }
+
+  const handleConfirmQuestion = () => {
+    const questionFields = questions[Number(questionIndex)]
+    questionFields.questionSelected = isChooseQuestion
+    if(questionIndex < questions.length){
+      setQuestionIndex(questionIndex+1)
+      setIsChooseQuestion('')
+    }
   }
 
   console.log(isChooseQuestion, 'questionsss')
@@ -27,44 +36,44 @@ export default function Quiz() {
         focusBorderColor='#251F18'
         placeholder='Faça uma pergunta'
         disabled
-        value={questions[0].question}
+        value={questions[questionIndex].question}
       />
 
     <Input
-        onClick={() => handleChooseQuestion(1)}
+        onClick={() => handleChooseQuestion('1')}
         focusBorderColor='#251F18'
         placeholder='Escolha uma opção'
-        value={questions[0].firstOption}
+        value={questions[questionIndex].firstOption}
         bgColor={'#FF6C3E'}
-        backgroundColor={ isChooseQuestion === 1 ? '#FF6C3E80' : '#5E503F'}
+        backgroundColor={ isChooseQuestion === '1' ? '#FF6C3E80' : '#5E503F'}
     />
      
     <Input
-        backgroundColor={ isChooseQuestion === 2 ? '#FF6C3E80' : '#5E503F'}
-        onClick={() => handleChooseQuestion(2)}
+        backgroundColor={ isChooseQuestion === '2' ? '#FF6C3E80' : '#5E503F'}
+        onClick={() => handleChooseQuestion('2')}
         focusBorderColor='#251F18'
         placeholder='Escolha uma opção'
-        value={questions[0].secondOption}
+        value={questions[questionIndex].secondOption}
 
     />
     
     <Input
-        backgroundColor={ isChooseQuestion === 3 ? '#FF6C3E80' : '#5E503F'}
-        onClick={() => handleChooseQuestion(3)}
+        backgroundColor={ isChooseQuestion === '3' ? '#FF6C3E80' : '#5E503F'}
+        onClick={() => handleChooseQuestion('3')}
         focusBorderColor='#251F18'
         placeholder='Escolha uma opção'
-        value={questions[0].thirdOption}
+        value={questions[questionIndex].thirdOption}
     />
     
     <Input
-        backgroundColor={ isChooseQuestion === 4 ? '#FF6C3E80' : '#5E503F'}
-        onClick={() => handleChooseQuestion(4)}
+        backgroundColor={ isChooseQuestion === '4' ? '#FF6C3E80' : '#5E503F'}
+        onClick={() => handleChooseQuestion('4')}
         focusBorderColor='#251F18'
         placeholder='Escolha uma opção'
-        value={questions[0].fourthOption}
+        value={questions[questionIndex].fourthOption}
     />
 
-    <Button colorScheme='teal' size={'md'} borderColor="#FF6C3E" variant='outline' onClick={() => console.log(isChooseQuestion)}>
+    <Button colorScheme='teal' size={'md'} borderColor="#FF6C3E" variant='outline' onClick={handleConfirmQuestion}>
         Confirmar
     </Button>
      

@@ -9,4 +9,5 @@ export interface QuestionFieldsProps {
     thirdOption?: string
     fourthOption?: string
     questionCorrect?: '' | '1' | '2' | '3' | '4'
+    questionSelected?: '' | '1' | '2' | '3' | '4'
 }
