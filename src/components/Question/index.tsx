@@ -17,7 +17,7 @@ export const Question = ( { quantitySelected } :QuestionProps) => {
   const [quantityQuestionCurrent, setQuantityQuestionCurrent] = useState(1)
 
   const handleConfirm = () => {
-   setQuestions([...questions, question]) 
+   setQuestions([...questions, {...question, id: String(quantityQuestionCurrent)}]) 
 
    if(quantityQuestionCurrent < Number(quantitySelected)){
     setQuantityQuestionCurrent(quantityQuestionCurrent + 1)

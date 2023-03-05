@@ -64,4 +64,47 @@ export const FormQuestion = styled.form`
             }
         }
 
+        button + button {
+            column-gap: 0.5rem;
+            align-items: center;
+            justify-content: center;
+            width: auto;
+
+            &:hover {
+                color: #EAE0D580; //quase branco mais claro
+                text-decoration: none;
+                background: none;
+            }
+        }
+
 `
+
+export const ContainerButton = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    position: relative;
+
+    button + button {
+        position: absolute;
+        right: 0;
+        top: 15%;
+    }
+
+`;
+
+export const InputContent = styled.div`
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    position: relative;
+
+    svg {
+        position: absolute;
+        right: 0;
+        margin-right: -2rem;
+        top: 25%;
+    }
+
+`;

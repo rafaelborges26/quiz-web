@@ -1,15 +1,18 @@
 import Head from 'next/head'
-import { Container, FormQuestion } from '../styles/pages/quiz'
-import { Heading, Button, Textarea, Input, Checkbox } from '@chakra-ui/react'
+import { Container, ContainerButton, FormQuestion, InputContent } from '../styles/pages/quiz'
+import { Heading, Button, Textarea, Input, Checkbox, Icon } from '@chakra-ui/react'
+import { ArrowForwardIcon, CheckIcon, CloseIcon } from '@chakra-ui/icons'
 import { useQuestions } from '../contexts/QuestionsContext'
 import { useState } from 'react'
 
 export default function Quiz() {
 
-  const { questions, setQuestions } = useQuestions()
+  const { questions, selectQuestion } = useQuestions()
 
   const [isChooseQuestion, setIsChooseQuestion] = useState<'' | '1' | '2' | '3' | '4'>('')
   const [questionIndex, setQuestionIndex] = useState(0)
+  const [isButtonNextPageActive, setIsButtonNextPageActive] = useState(false)
+  const [isRigthQuestion, setIsRigthQuestion] = useState(false)
   
   const handleChooseQuestion = (question: '1' | '2' | '3' | '4') => {
     if(isChooseQuestion == question)
@@ -18,20 +21,33 @@ export default function Quiz() {
   }
 
   const handleConfirmQuestion = () => {
+    setIsButtonNextPageActive(true)
     const questionFields = questions[Number(questionIndex)]
     questionFields.questionSelected = isChooseQuestion
+    questionFields.rigthQuestion = questionFields.questionCorrect === questionFields.questionSelected
+    setIsRigthQuestion(questionFields.questionCorrect === questionFields.questionSelected)
+
+    selectQuestion(questionFields)
+  }
+
+  const handleNextQuestion = () => {
     if(questionIndex < questions.length){
       setQuestionIndex(questionIndex+1)
       setIsChooseQuestion('')
     }
+    setIsButtonNextPageActive(false)
   }
 
-  console.log(isChooseQuestion, 'questionsss')
+  
   return (
     <Container>
     <Heading as='h2' size='2xl'>Responda o Quiz corretamente.</Heading>
     <FormQuestion>
-    <Heading as='h6' size='lg'>Respostas 1 de 3:</Heading>
+    <Heading as='h6' size='lg'>{`Respostas ${questionIndex} de ${questions.length}:`}</Heading>
+
+    { questionIndex < questions.length &&
+    (
+      <>
       <Textarea
         focusBorderColor='#251F18'
         placeholder='Faça uma pergunta'
@@ -45,6 +61,7 @@ export default function Quiz() {
         placeholder='Escolha uma opção'
         value={questions[questionIndex].firstOption}
         bgColor={'#FF6C3E'}
+        onChange={() => {}}
         backgroundColor={ isChooseQuestion === '1' ? '#FF6C3E80' : '#5E503F'}
     />
      
@@ -53,8 +70,8 @@ export default function Quiz() {
         onClick={() => handleChooseQuestion('2')}
         focusBorderColor='#251F18'
         placeholder='Escolha uma opção'
+        onChange={() => {}}
         value={questions[questionIndex].secondOption}
-
     />
     
     <Input
@@ -62,6 +79,7 @@ export default function Quiz() {
         onClick={() => handleChooseQuestion('3')}
         focusBorderColor='#251F18'
         placeholder='Escolha uma opção'
+        onChange={() => {}}
         value={questions[questionIndex].thirdOption}
     />
     
@@ -70,12 +88,25 @@ export default function Quiz() {
         onClick={() => handleChooseQuestion('4')}
         focusBorderColor='#251F18'
         placeholder='Escolha uma opção'
+        onChange={() => {}}
         value={questions[questionIndex].fourthOption}
     />
 
-    <Button colorScheme='teal' size={'md'} borderColor="#FF6C3E" variant='outline' onClick={handleConfirmQuestion}>
+    <ContainerButton>
+    <Button colorScheme='teal' size={'md'} borderColor="#FF6C3E" variant='outline' onClick={handleConfirmQuestion} disabled={!isChooseQuestion} visibility={ !isButtonNextPageActive ? 'visible' : 'hidden'}>
         Confirmar
     </Button>
+
+    <Button colorScheme='teal' size={'md'} borderColor="#FF6C3E" variant='link' onClick={handleNextQuestion} visibility={ isButtonNextPageActive ? 'visible' : 'hidden'} >
+        Próxima pergunta
+        <Icon as={ArrowForwardIcon} color="red.500" />
+    </Button>
+    </ContainerButton>
+
+      </>
+    ) }
+
+      
      
     </FormQuestion>
       

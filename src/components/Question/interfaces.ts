@@ -3,6 +3,7 @@ export interface QuestionProps {
 }
 
 export interface QuestionFieldsProps {
+    id?: string
     question?: string
     firstOption?: string
     secondOption?: string
@@ -10,4 +11,5 @@ export interface QuestionFieldsProps {
     fourthOption?: string
     questionCorrect?: '' | '1' | '2' | '3' | '4'
     questionSelected?: '' | '1' | '2' | '3' | '4'
+    rigthQuestion?: boolean
 }
