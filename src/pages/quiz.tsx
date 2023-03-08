@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { Container, ContainerButton, FormQuestion, InputContent } from '../styles/pages/quiz'
+import { Container, ContainerButton, FormQuestion, InputContent, TextError } from '../styles/pages/quiz'
 import { Heading, Button, Textarea, Input, Checkbox, Icon } from '@chakra-ui/react'
 import { ArrowForwardIcon, CheckIcon, CloseIcon } from '@chakra-ui/icons'
 import { useQuestions } from '../contexts/QuestionsContext'
@@ -11,8 +11,8 @@ export default function Quiz() {
 
   const [isChooseQuestion, setIsChooseQuestion] = useState<'' | '1' | '2' | '3' | '4'>('')
   const [questionIndex, setQuestionIndex] = useState(0)
-  const [isButtonNextPageActive, setIsButtonNextPageActive] = useState(false)
-  const [isRigthQuestion, setIsRigthQuestion] = useState(false)
+  const [isConfirmedQuestion, setIsConfirmedQuestion] = useState(false)
+  const [isRigthQuestion, setIsRigthQuestion] = useState<boolean | null>(false)
   
   const handleChooseQuestion = (question: '1' | '2' | '3' | '4') => {
     if(isChooseQuestion == question)
@@ -21,7 +21,7 @@ export default function Quiz() {
   }
 
   const handleConfirmQuestion = () => {
-    setIsButtonNextPageActive(true)
+    setIsConfirmedQuestion(true)
     const questionFields = questions[Number(questionIndex)]
     questionFields.questionSelected = isChooseQuestion
     questionFields.rigthQuestion = questionFields.questionCorrect === questionFields.questionSelected
@@ -35,7 +35,8 @@ export default function Quiz() {
       setQuestionIndex(questionIndex+1)
       setIsChooseQuestion('')
     }
-    setIsButtonNextPageActive(false)
+    setIsRigthQuestion(null)
+    setIsConfirmedQuestion(false)
   }
 
   
@@ -60,23 +61,37 @@ export default function Quiz() {
         focusBorderColor='#251F18'
         placeholder='Escolha uma opção'
         value={questions[questionIndex].firstOption}
-        bgColor={'#FF6C3E'}
+        borderColor={isRigthQuestion && isChooseQuestion === '1' ? '#008000' : '#000'}
         onChange={() => {}}
-        backgroundColor={ isChooseQuestion === '1' ? '#FF6C3E80' : '#5E503F'}
+        backgroundColor={ 
+          isRigthQuestion && isChooseQuestion === '1' ? '#008000' :
+          (isRigthQuestion === false && isChooseQuestion === '1') ? '#931016' :
+          isChooseQuestion === '1' ? '#927E67' : '#5E503F'
+        }
     />
      
     <Input
-        backgroundColor={ isChooseQuestion === '2' ? '#FF6C3E80' : '#5E503F'}
+        backgroundColor={ 
+          (isRigthQuestion && isChooseQuestion === '2') ? '#008000' :
+          (isRigthQuestion === false && isChooseQuestion === '2') ? '#931016' :
+          isChooseQuestion === '2' ? '#927E67' : '#5E503F'
+        }
         onClick={() => handleChooseQuestion('2')}
         focusBorderColor='#251F18'
+        borderColor={isRigthQuestion && isChooseQuestion === '2' ? '#008000' : '#000'}
         placeholder='Escolha uma opção'
         onChange={() => {}}
         value={questions[questionIndex].secondOption}
     />
     
     <Input
-        backgroundColor={ isChooseQuestion === '3' ? '#FF6C3E80' : '#5E503F'}
+        backgroundColor={ 
+          (isRigthQuestion && isChooseQuestion === '3') ? '#008000' :
+          (isRigthQuestion === false && isChooseQuestion === '3') ? '#931016' :
+          isChooseQuestion === '3' ? '#927E67' : '#5E503F'
+        }
         onClick={() => handleChooseQuestion('3')}
+        borderColor={isRigthQuestion && isChooseQuestion === '3' ? '#008000' : '#000'}
         focusBorderColor='#251F18'
         placeholder='Escolha uma opção'
         onChange={() => {}}
@@ -84,20 +99,27 @@ export default function Quiz() {
     />
     
     <Input
-        backgroundColor={ isChooseQuestion === '4' ? '#FF6C3E80' : '#5E503F'}
+        backgroundColor={ 
+          (isRigthQuestion && isChooseQuestion === '4') ? '#008000' :
+          (isRigthQuestion === false && isChooseQuestion === '4') ? '#931016' :
+          isChooseQuestion === '4' ? '#927E67' : '#5E503F'
+        }
         onClick={() => handleChooseQuestion('4')}
+        borderColor={isRigthQuestion && isChooseQuestion === '4' ? '#008000' : '#000'}
         focusBorderColor='#251F18'
         placeholder='Escolha uma opção'
         onChange={() => {}}
         value={questions[questionIndex].fourthOption}
     />
 
+    <TextError>ERROU...</TextError>
+
     <ContainerButton>
-    <Button colorScheme='teal' size={'md'} borderColor="#FF6C3E" variant='outline' onClick={handleConfirmQuestion} disabled={!isChooseQuestion} visibility={ !isButtonNextPageActive ? 'visible' : 'hidden'}>
+    <Button colorScheme='teal' size={'md'} borderColor="#FF6C3E" variant='outline' onClick={handleConfirmQuestion} disabled={!isChooseQuestion} visibility={ !isConfirmedQuestion ? 'visible' : 'hidden'}>
         Confirmar
     </Button>
 
-    <Button colorScheme='teal' size={'md'} borderColor="#FF6C3E" variant='link' onClick={handleNextQuestion} visibility={ isButtonNextPageActive ? 'visible' : 'hidden'} >
+    <Button colorScheme='teal' size={'md'} borderColor="#FF6C3E" variant='link' onClick={handleNextQuestion} visibility={ isConfirmedQuestion ? 'visible' : 'hidden'} >
         Próxima pergunta
         <Icon as={ArrowForwardIcon} color="red.500" />
     </Button>

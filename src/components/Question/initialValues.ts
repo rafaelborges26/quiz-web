@@ -7,5 +7,5 @@ export const initialValuesQuestion: QuestionFieldsProps = {
     secondOption: '',
     thirdOption: '',
     fourthOption: '',
-    rigthQuestion: false
+    rigthQuestion: undefined
 }

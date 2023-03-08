@@ -1,6 +1,7 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const Container = styled.div`
+    position: relative;
     width: inherit;
     display: flex;
     flex-direction: column;
@@ -39,7 +40,6 @@ export const FormQuestion = styled.form`
 
     > input {
         color: #fff;
-        border-color: #000;
         margin-bottom: 0.7rem;
 
         cursor: pointer !important;
@@ -78,6 +78,28 @@ export const FormQuestion = styled.form`
         }
 
 `
+
+export const TextError = styled.h5`
+    position: absolute;
+    right: 5%;
+    font-size: 24px;
+    font-weight: 700;
+    animation: pisca 3s ease-in-out infinite;
+
+    @keyframes pisca {
+    0% {
+        color: #000;
+        text-shadow: 0 0 12px #000,
+        0 0 50px #000,
+        0 0 100px #000,
+    }
+    10%, 80% {
+        color: #931016;
+        text-shadow: none;
+    }
+}
+
+`;
 
 export const ContainerButton = styled.div`
     width: 100%;

@@ -22,13 +22,11 @@ export function ContextsProvider({children} :QuestionsProviderProps) {
         const questionIndex = questions.findIndex(question => question.id === questionSelected.id)
 
         newQuestions[questionIndex] = questionSelected
+        console.log(newQuestions, 'newQuestions')
         setQuestions(newQuestions)
     }
 
-
-    useEffect(() => {
-        console.log(questions, 'questions')
-    },[questions])
+    console.log(questions, 'questions')
 
     return (
         <QuestionsContext.Provider value={{
