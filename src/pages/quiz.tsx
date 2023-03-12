@@ -1,18 +1,20 @@
 import Head from 'next/head'
-import { Container, ContainerButton, FormQuestion, InputContent, TextError } from '../styles/pages/quiz'
+import { Container, ContainerButton, FormQuestion, InputContent, TextCorrect, TextError } from '../styles/pages/quiz'
 import { Heading, Button, Textarea, Input, Checkbox, Icon } from '@chakra-ui/react'
 import { ArrowForwardIcon, CheckIcon, CloseIcon } from '@chakra-ui/icons'
 import { useQuestions } from '../contexts/QuestionsContext'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 
 export default function Quiz() {
 
+  const { push } = useRouter()
   const { questions, selectQuestion } = useQuestions()
 
   const [isChooseQuestion, setIsChooseQuestion] = useState<'' | '1' | '2' | '3' | '4'>('')
   const [questionIndex, setQuestionIndex] = useState(0)
   const [isConfirmedQuestion, setIsConfirmedQuestion] = useState(false)
-  const [isRigthQuestion, setIsRigthQuestion] = useState<boolean | null>(false)
+  const [isRigthQuestion, setIsRigthQuestion] = useState<boolean | null>(null)
   
   const handleChooseQuestion = (question: '1' | '2' | '3' | '4') => {
     if(isChooseQuestion == question)
@@ -39,12 +41,16 @@ export default function Quiz() {
     setIsConfirmedQuestion(false)
   }
 
-  
+  const handleNavigateToResults = () => {
+    push('result')
+  }
+
+  console.log(questionIndex, questions.length, 'vezes')
   return (
     <Container>
     <Heading as='h2' size='2xl'>Responda o Quiz corretamente.</Heading>
     <FormQuestion>
-    <Heading as='h6' size='lg'>{`Respostas ${questionIndex} de ${questions.length}:`}</Heading>
+    <Heading as='h6' size='lg'>{`Respostas ${questionIndex+1} de ${questions.length}:`}</Heading>
 
     { questionIndex < questions.length &&
     (
@@ -112,17 +118,37 @@ export default function Quiz() {
         value={questions[questionIndex].fourthOption}
     />
 
-    <TextError>ERROU...</TextError>
+    { !!isRigthQuestion && (
+      <TextCorrect>ACERTOU!!</TextCorrect>
+    )}
+
+    { !isRigthQuestion && isRigthQuestion !== null && (
+      <TextError>ERROU...</TextError>
+    )}
+      
+    
 
     <ContainerButton>
     <Button colorScheme='teal' size={'md'} borderColor="#FF6C3E" variant='outline' onClick={handleConfirmQuestion} disabled={!isChooseQuestion} visibility={ !isConfirmedQuestion ? 'visible' : 'hidden'}>
         Confirmar
     </Button>
 
-    <Button colorScheme='teal' size={'md'} borderColor="#FF6C3E" variant='link' onClick={handleNextQuestion} visibility={ isConfirmedQuestion ? 'visible' : 'hidden'} >
-        Próxima pergunta
-        <Icon as={ArrowForwardIcon} color="red.500" />
-    </Button>
+    { questionIndex+1 < questions.length && (
+      <Button colorScheme='teal' size={'md'} borderColor="#FF6C3E" variant='link' onClick={handleNextQuestion} visibility={ isConfirmedQuestion ? 'visible' : 'hidden'} >
+      Próxima pergunta
+      <Icon as={ArrowForwardIcon} color="red.500" />
+      </Button>
+    ) }
+
+    { questionIndex+1 === questions.length && (
+      <Button colorScheme='teal' size={'md'} borderColor="#FF6C3E" variant='link' onClick={handleNavigateToResults} >
+        Visualizar resultados
+      <Icon as={ArrowForwardIcon} color="red.500" />
+      </Button>
+    ) }
+
+
+    
     </ContainerButton>
 
       </>

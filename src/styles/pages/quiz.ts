@@ -1,8 +1,8 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
 export const Container = styled.div`
     position: relative;
-    width: inherit;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -84,7 +84,7 @@ export const TextError = styled.h5`
     right: 5%;
     font-size: 24px;
     font-weight: 700;
-    animation: pisca 3s ease-in-out infinite;
+    animation: pisca 1.5s ease-in-out infinite;
 
     @keyframes pisca {
     0% {
@@ -94,7 +94,29 @@ export const TextError = styled.h5`
         0 0 100px #000,
     }
     10%, 80% {
-        color: #931016;
+        color: #fff;
+        text-shadow: none;
+    }
+}
+
+`;
+
+export const TextCorrect = styled.h5`
+    position: absolute;
+    right: 1%;
+    font-size: 24px;
+    font-weight: 700;
+    animation: pisca 1.5s ease-in-out infinite;
+
+    @keyframes pisca {
+    0% {
+        color: #000;
+        text-shadow: 0 0 12px #000,
+        0 0 50px #000,
+        0 0 100px #000,
+    }
+    10%, 80% {
+        color: #fff;
         text-shadow: none;
     }
 }
