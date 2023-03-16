@@ -12,6 +12,7 @@ export const Container = styled.div`
     h4 {
         margin-bottom: 1.5rem;
         color: #EAE0D5; //quase branco
+        text-align: center;
     }
 
 `

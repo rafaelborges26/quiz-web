@@ -3,38 +3,48 @@ import { Container, Content } from '../styles/pages/result'
 import congratsImage from '../assets/images/congrats.svg'
 import failedImage from '../assets/images/failed.svg'
 
-import { Heading, Button, Textarea, Input, Checkbox, Progress, Stack, Text } from '@chakra-ui/react'
+import { Heading, Progress, Stack, Text } from '@chakra-ui/react'
 import { useQuestions } from '../contexts/QuestionsContext'
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Image from 'next/image'
+import { messagesStatus } from '../utils/messagesStatus'
 
 export default function Result() {
 
-  const { questions } = useQuestions()
+  const { questions, calculateRigthPercentage, percentage } = useQuestions()
 
-  const successok = questions.filter(question => question.rigthQuestion === true )
+  const rigthQuestions = questions.filter(question => question.rigthQuestion === true )
+  
+  const success = (percentage > 50) ? true : false 
 
-  console.log(successok.length, 'teste')
+  const statusMessage = useMemo(() => {
+    if(percentage <= 30) {
+      return messagesStatus.verryBad
+    } else if(percentage > 30 && percentage < 50) {
+      return messagesStatus.bad
+    } else if(percentage >= 50 && percentage <= 70 ) {
+      return messagesStatus.regular
+    } else if (percentage > 70) {
+      return messagesStatus.verryGood
+    }
+  },[percentage])
 
-  const success = false
-
-  //setar se é mais q 50% sucesso se nao falso
-
-  //setar tambem a porcentagem da barra de progress
+  useEffect(() => {
+    calculateRigthPercentage()
+  },[calculateRigthPercentage])
 
   return (
     <Container>
       
     <Heading as='h4' size='2xl'>
-      { success ? 'Você foi muito bem!' : 'Você foi muito mal!' }
-      
+      {statusMessage}
     </Heading>
     <Stack spacing={5} width="inherit">
-      <Progress colorScheme={ success ? 'green' : 'red'} size='lg' value={50} />
+      <Progress colorScheme={ success ? 'green' : 'red'} size='lg' value={percentage} />
     </Stack>
     <Content>
 
-    <Text fontSize='3xl' size='lg'>{`acertou ${successok.length} de ${questions.length}`}</Text>
+    <Text fontSize='3xl' size='lg'>{`acertou ${rigthQuestions.length} de ${questions.length}`}</Text>
 
     { success ? (
       <Image src={congratsImage} width={300} alt="parabéns!" />

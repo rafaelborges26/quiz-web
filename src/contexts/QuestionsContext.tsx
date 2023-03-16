@@ -5,6 +5,8 @@ interface QuestionsContextDataProps {
     questions: QuestionFieldsProps[]
     setQuestions: (questions: QuestionFieldsProps[]) => void
     selectQuestion: (questionSelected: QuestionFieldsProps) => void
+    calculateRigthPercentage: () => void
+    percentage: number
 }
 
 interface QuestionsProviderProps {
@@ -17,6 +19,8 @@ export function ContextsProvider({children} :QuestionsProviderProps) {
 
     const [questions, setQuestions] = useState<QuestionFieldsProps[]>([])
 
+    const [percentage, setPercentage] = useState(0)
+
     const selectQuestion = (questionSelected:QuestionFieldsProps) => {
         const newQuestions = questions
         const questionIndex = questions.findIndex(question => question.id === questionSelected.id)
@@ -26,6 +30,17 @@ export function ContextsProvider({children} :QuestionsProviderProps) {
         setQuestions(newQuestions)
     }
 
+    const calculateRigthPercentage = () => {
+        const questionsRigth = questions.filter(question => question.questionCorrect === question.questionSelected)
+        const questionsTotal = questions.length
+
+        if(questionsRigth){
+            const resultPercentage = questionsRigth.length * 100 / questionsTotal 
+            
+            setPercentage(resultPercentage)
+        }
+    }
+
     console.log(questions, 'questions')
 
     return (
@@ -33,6 +48,8 @@ export function ContextsProvider({children} :QuestionsProviderProps) {
             questions,
             setQuestions,
             selectQuestion,
+            calculateRigthPercentage,
+            percentage
         }}>
             {children}
         </QuestionsContext.Provider>

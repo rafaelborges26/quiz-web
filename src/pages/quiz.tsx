@@ -140,7 +140,7 @@ export default function Quiz() {
       </Button>
     ) }
 
-    { questionIndex+1 === questions.length && (
+    { questionIndex+1 === questions.length && isConfirmedQuestion &&  (
       <Button colorScheme='teal' size={'md'} borderColor="#FF6C3E" variant='link' onClick={handleNavigateToResults} >
         Visualizar resultados
       <Icon as={ArrowForwardIcon} color="red.500" />
