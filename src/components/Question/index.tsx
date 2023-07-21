@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useQuestions } from '../../contexts/QuestionsContext'
 import { useRouter } from 'next/router'
 import { QuestionProps, QuestionFieldsProps } from './interfaces'
@@ -15,6 +15,8 @@ export const Question = ( { quantitySelected } :QuestionProps) => {
 
   const [question, setQuestion] = useState<QuestionFieldsProps>(initialValuesQuestion)
   const [quantityQuestionCurrent, setQuantityQuestionCurrent] = useState(1)
+  const [isFilled, setIsFilled] = useState(false)
+  const [isChecked, setIsChecked] = useState(false)
 
   const handleConfirm = () => {
    setQuestions([...questions, {...question, id: String(quantityQuestionCurrent)}]) 
@@ -40,6 +42,16 @@ export const Question = ( { quantitySelected } :QuestionProps) => {
       setQuestion({ ...question, questionCorrect: option })
     }
   }
+
+  useEffect(() => {
+    if(!!question.question && !!question.firstOption && !!question.secondOption && !!question.thirdOption && !!question.fourthOption && !!question.questionCorrect) {
+      setIsFilled(true)
+    } else {
+      setIsFilled(false)
+    }
+    
+    console.log('testes', question)
+  },[question])
 
   console.log(question, 'questionn')
 
@@ -96,7 +108,7 @@ export const Question = ( { quantitySelected } :QuestionProps) => {
             <Checkbox colorScheme='orange' size={'lg'} onChange={() => handleCheckOption('4')} isChecked={question.questionCorrect === '4'}/>
             </ContainerInput>
 
-            <Button colorScheme='teal' size={'md'} variant='outline' onClick={handleConfirm}>
+            <Button colorScheme='teal' size={'md'} variant='outline' disabled={isFilled ? false : true } onClick={handleConfirm}>
                 Confirmar
             </Button>
             </FormQuestion>

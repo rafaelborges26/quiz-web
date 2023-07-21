@@ -51,11 +51,6 @@ export default function Result() {
     ) : (
       <Image src={failedImage} width={400} alt="triste" />
     ) }
-
-    
-    
-      
-     
     </Content>
       
     </Container>
