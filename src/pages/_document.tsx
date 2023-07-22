@@ -1,19 +1,24 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
+import { NextSeo } from 'next-seo'
 
 export default class MyDocument extends Document {
+    static async getInitialProps(ctx: any) {
+        const initialProps = await Document.getInitialProps(ctx);
+        return { ...initialProps };
+      }
     render() {
         return (
             
             <Html lang="pt-BR">
             <Head>
-                <link rel="preconnect" href="https://fonts.googleapis.com" />
-                <link rel="preconnect" href="https://fonts.gstatic.com"/>
-                <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet" />
-                <link rel="shortcut icon" href="/favicon.png" type="image/png" />
                 <meta charSet="UTF-8" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <meta name="description" content="Quiz divertido para descobrir o quanto vocês realmente se conhecem!" />
-          {}         
+                  {/* Meta tags para redes sociais (incluindo o WhatsApp) */}
+                    <meta property="og:title" content="Quiz" />
+                    <meta property="og:description" content="Quiz divertido para descobrir o quanto vocês realmente se conhecem!" />
+                {/*
+                    <meta property="og:url" content="https://www.example.com" />
+                  {/* Adicione uma imagem representativa do seu site para pré-visualizações nas redes sociais */}
             </Head>
             <body>
                 <Main />
