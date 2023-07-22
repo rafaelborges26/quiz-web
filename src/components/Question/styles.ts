@@ -65,3 +65,30 @@ export const ContainerInput = styled.div`
     gap: 1rem;
     margin-bottom: 0.7rem;
 `
+
+export const ContainerQuestionsSuccess = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    transition: all 0.25ms;
+
+    h2 {
+        color: #868A88; //marrom
+        text-align: center;
+        font-size: 1.5rem;
+    }
+
+    button {
+        margin-left: auto;
+        margin-top: 3rem;
+        color: #FF6C3E;
+        font-size: medium;
+
+        :hover {
+            filter: brightness(80%);
+        }
+        
+    }
+
+`

@@ -1,17 +1,21 @@
 import Head from 'next/head'
-import { Container, Content } from '../styles/pages/result'
+import { useRouter } from 'next/router'
+import { useEffect, useMemo, useState } from 'react'
+import Image from 'next/image'
+
+import { Heading, Progress, Stack, Text, Button } from '@chakra-ui/react'
 import congratsImage from '../assets/images/congrats.svg'
 import failedImage from '../assets/images/failed.svg'
 
-import { Heading, Progress, Stack, Text } from '@chakra-ui/react'
 import { useQuestions } from '../contexts/QuestionsContext'
-import { useEffect, useMemo, useState } from 'react'
-import Image from 'next/image'
 import { messagesStatus } from '../utils/messagesStatus'
+import { Container, Content } from '../styles/pages/result'
 
 export default function Result() {
 
-  const { questions, calculateRigthPercentage, percentage } = useQuestions()
+  const { push } = useRouter()
+
+  const { questions, calculateRigthPercentage, percentage, clearQuestions } = useQuestions()
 
   const rigthQuestions = questions.filter(question => question.rigthQuestion === true )
   
@@ -28,6 +32,11 @@ export default function Result() {
       return messagesStatus.verryGood
     }
   },[percentage])
+
+  const handleBackToInitial = () => {
+    push('/')
+    clearQuestions()
+  }
 
   useEffect(() => {
     calculateRigthPercentage()
@@ -52,7 +61,8 @@ export default function Result() {
       <Image src={failedImage} width={400} alt="triste" />
     ) }
     </Content>
-      
+    
+    <Button variant="unstyled" onClick={handleBackToInitial} >Voltar para o início</Button>
     </Container>
   )
 }

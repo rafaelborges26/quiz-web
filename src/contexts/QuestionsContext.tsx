@@ -7,6 +7,7 @@ interface QuestionsContextDataProps {
     selectQuestion: (questionSelected: QuestionFieldsProps) => void
     calculateRigthPercentage: () => void
     percentage: number
+    clearQuestions: () => void
 }
 
 interface QuestionsProviderProps {
@@ -41,7 +42,9 @@ export function ContextsProvider({children} :QuestionsProviderProps) {
         }
     }
 
-    console.log(questions, 'questions')
+    const clearQuestions = () => {
+        setQuestions([])
+    }
 
     return (
         <QuestionsContext.Provider value={{
@@ -49,7 +52,8 @@ export function ContextsProvider({children} :QuestionsProviderProps) {
             setQuestions,
             selectQuestion,
             calculateRigthPercentage,
-            percentage
+            percentage,
+            clearQuestions,
         }}>
             {children}
         </QuestionsContext.Provider>

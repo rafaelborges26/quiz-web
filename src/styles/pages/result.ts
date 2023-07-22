@@ -8,11 +8,22 @@ export const Container = styled.div`
     justify-content: center;
     align-items: center;
     margin-top: 6rem;
+    transition: all 0.25ms;
 
     h4 {
         margin-bottom: 1.5rem;
         color: #EAE0D5; //quase branco
         text-align: center;
+    }
+
+    button {
+        margin-left: auto;
+        color: #EAE0D5;
+        font-weight: 700;
+        
+        :hover {
+            filter: brightness(80%);
+        }
     }
 
 `

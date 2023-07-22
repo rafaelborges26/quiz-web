@@ -1,11 +1,12 @@
-import Head from 'next/head'
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 import { useQuestions } from '../../contexts/QuestionsContext'
+import { Heading, Input, Button, Textarea, Checkbox } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { QuestionProps, QuestionFieldsProps } from './interfaces'
 import { initialValuesQuestion } from './initialValues'
-import { Heading, Input, Button, Textarea, Checkbox } from '@chakra-ui/react'
-import { Container, FormQuestion, ContainerInput } from './styles'
+import { Container, FormQuestion, ContainerInput, ContainerQuestionsSuccess } from './styles'
+import IconDone from '../../assets/images/done.svg'
 
 
 export const Question = ( { quantitySelected } :QuestionProps) => {
@@ -16,7 +17,7 @@ export const Question = ( { quantitySelected } :QuestionProps) => {
   const [question, setQuestion] = useState<QuestionFieldsProps>(initialValuesQuestion)
   const [quantityQuestionCurrent, setQuantityQuestionCurrent] = useState(1)
   const [isFilled, setIsFilled] = useState(false)
-  const [isChecked, setIsChecked] = useState(false)
+  const [isHideForm, setIsHideForm] = useState(false)
 
   const handleConfirm = () => {
    setQuestions([...questions, {...question, id: String(quantityQuestionCurrent)}]) 
@@ -27,8 +28,12 @@ export const Question = ( { quantitySelected } :QuestionProps) => {
     
     console.log(questions, 'questions')
    } else {
-     push('/quiz')
+     setIsHideForm(true)
    }
+  }
+
+  const handleNavigateToQuiz = () => {
+    push('/quiz')
   }
 
   const refreshQuestion = () => {
@@ -48,17 +53,15 @@ export const Question = ( { quantitySelected } :QuestionProps) => {
       setIsFilled(true)
     } else {
       setIsFilled(false)
-    }
-    
-    console.log('testes', question)
+    }    
   },[question])
-
-  console.log(question, 'questionn')
 
   return (
             <Container>
-            <Heading as='h2' size='2xl'>{`${quantityQuestionCurrent} de ${quantitySelected}`}</Heading>
-            <FormQuestion>
+            { !isHideForm ? (
+              <>
+              <Heading as='h2' size='2xl'>{`${quantityQuestionCurrent} de ${quantitySelected}`}</Heading>
+              <FormQuestion>
               <Textarea
                 focusBorderColor='#251F18'
                 placeholder='Faça uma pergunta'
@@ -112,7 +115,16 @@ export const Question = ( { quantitySelected } :QuestionProps) => {
                 Confirmar
             </Button>
             </FormQuestion>
-              
+            </>
+            ) : (
+              <ContainerQuestionsSuccess>
+                <Heading size='xl'>Todas as perguntas foram concluídas, agora é hora das respostas.</Heading>
+                <Image src={IconDone} alt="Concluído" />
+                <Button colorScheme='teal' size={'md'} variant='unstyled' onClick={handleNavigateToQuiz}>
+                  Responder as perguntas
+                </Button> 
+              </ContainerQuestionsSuccess>
+            )}
             </Container>
   )
 }
