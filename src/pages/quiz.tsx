@@ -45,7 +45,6 @@ export default function Quiz() {
     push('result')
   }
 
-  console.log(questionIndex, questions.length, 'vezes')
   return (
     <Container>
     <Heading as='h2' size='2xl'>Responda o Quiz corretamente.</Heading>

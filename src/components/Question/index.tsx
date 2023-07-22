@@ -25,8 +25,6 @@ export const Question = ( { quantitySelected } :QuestionProps) => {
    if(quantityQuestionCurrent < Number(quantitySelected)){
     setQuantityQuestionCurrent(quantityQuestionCurrent + 1)
     refreshQuestion()
-    
-    console.log(questions, 'questions')
    } else {
      setIsHideForm(true)
    }
