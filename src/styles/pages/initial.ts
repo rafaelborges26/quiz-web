@@ -15,6 +15,10 @@ export const Container = styled.div`
     
     @media (max-width: 720px) {
         text-align: center;
+
+        > h2 {
+            margin-bottom: 4rem;
+        }
     }
 `;
 
