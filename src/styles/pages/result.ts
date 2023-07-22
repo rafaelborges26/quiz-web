@@ -24,6 +24,15 @@ export const Container = styled.div`
         :hover {
             filter: brightness(80%);
         }
+
+        @media (max-width: 720px) {
+            margin-top: 2rem;
+        }   
+    }
+
+    
+    @media (max-width: 720px) {
+        margin-top: 2rem;
     }
 
 `

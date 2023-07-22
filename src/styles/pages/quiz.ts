@@ -7,6 +7,8 @@ export const Container = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
+    padding-bottom: 5rem;
 
     h2 {
         margin-bottom: 2.5rem;
@@ -77,6 +79,11 @@ export const FormQuestion = styled.form`
             }
         }
 
+        
+        @media (max-width: 720px) {
+            width: 100%;
+        }
+
 `
 
 export const TextError = styled.h5`
@@ -85,6 +92,13 @@ export const TextError = styled.h5`
     font-size: 24px;
     font-weight: 700;
     animation: pisca 1.5s ease-in-out infinite;
+
+    
+    @media (max-width: 720px) {
+        bottom: 0rem;
+        right: 0;
+        left: 0;
+    }
 
     @keyframes pisca {
     0% {
@@ -107,6 +121,13 @@ export const TextCorrect = styled.h5`
     font-size: 24px;
     font-weight: 700;
     animation: pisca 1.5s ease-in-out infinite;
+
+    
+    @media (max-width: 720px) {
+        bottom: 0rem;
+        right: 0;
+        left: 0;
+    }
 
     @keyframes pisca {
     0% {

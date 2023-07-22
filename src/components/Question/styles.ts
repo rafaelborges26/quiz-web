@@ -56,6 +56,10 @@ export const FormQuestion = styled.form`
             }
         }
 
+        @media (max-width: 720px) {
+            width: 100%;
+        }
+
 `
 
 export const ContainerInput = styled.div`

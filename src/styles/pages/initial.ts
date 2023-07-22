@@ -12,6 +12,10 @@ export const Container = styled.div`
         color: #EAE0D5;
         margin-bottom: 10rem;
     }
+    
+    @media (max-width: 720px) {
+        text-align: center;
+    }
 `;
 
 export const Form = styled.div`
@@ -28,5 +32,12 @@ export const Form = styled.div`
 
     h2 {
         color: #FF6C3E;
+    }
+
+    
+    @media (max-width: 720px) {
+        p {
+            margin-bottom: 3rem;
+        }
     }
 `
