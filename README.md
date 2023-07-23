@@ -10,21 +10,21 @@
 <p align="center">🚀 Aplicação web Quiz</p>
 
 <strong>Página inicial</strong>
-<img src="public/github/pageInitial.png" alt="Página inicial" />
+<img src="public/github/selectQuantity.PNG" alt="Selecionar quantidade de questões" />
 
 <strong>Perguntas</strong>
-<img src="public/github/newChallenge.png" alt="Novo desafio" />
+<img src="public/github/questions.PNG" alt="Primeira Questão" />
 
 <strong>Perguntas concluídas</strong>
-<img src="public/github/levelup.png" alt="Novo level" />
+<img src="public/github/questionsDone.PNG" alt="Questões feitas" />
 
 <strong>Respostas</strong>
 <br/>
-<img src="public/github/register.png" alt="Tela responsiva" />
+<img src="public/github/result.PNG" alt="Resultado" />
 
 <strong>Tela responsiva</strong>
 <br/>
-<img src="public/github/responsive.png" alt="Tela responsiva" />
+<img src="public/github/responsive.PNG" alt="Tela responsiva" />
 
 ### 🛠 Utilizar
 
