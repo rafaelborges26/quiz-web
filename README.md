@@ -1,4 +1,4 @@
-# Moveitnow
+# Quiz
 
 ## Descrição do Projeto
 <p align="center">O projeto consiste em um empolgante jogo de Quiz, repleto de perguntas e respostas. Inicialmente, o participante responsável pelas perguntas tem a liberdade de selecionar tanto a quantidade quanto o conteúdo das questões que farão parte do jogo. Em seguida, o participante encarregado das respostas escolhe as alternativas correspondentes.</p>
@@ -9,7 +9,7 @@
 </h1>
 <p align="center">🚀 Aplicação web Quiz</p>
 
-<strong>Página inicial</strong>
+<strong>Selecionar quantidade de questões</strong>
 <img src="public/github/selectQuantity.PNG" alt="Selecionar quantidade de questões" />
 
 <strong>Perguntas</strong>
@@ -18,7 +18,10 @@
 <strong>Perguntas concluídas</strong>
 <img src="public/github/questionsDone.PNG" alt="Questões feitas" />
 
-<strong>Respostas</strong>
+<strong>Pergunta selecionada</strong>
+<img src="public/github/questionAnswered.PNG" alt="Pergunta selecionada" />
+
+<strong>Resultado</strong>
 <br/>
 <img src="public/github/result.PNG" alt="Resultado" />
 
