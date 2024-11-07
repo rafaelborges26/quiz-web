@@ -10,7 +10,8 @@ export const Container = styled.div`
 
     > h2 {
         color: #EAE0D5;
-        margin-bottom: 10rem;
+        //margin-bottom: 10rem; depois adicionar de novo
+        margin-bottom: 1rem; //tirar esse
     }
     
     @media (max-width: 720px) {

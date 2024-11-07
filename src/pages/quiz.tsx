@@ -4,7 +4,7 @@ import { Heading, Button, Textarea, Input, Checkbox, Icon } from '@chakra-ui/rea
 import { ArrowForwardIcon, CheckIcon, CloseIcon } from '@chakra-ui/icons'
 import { useQuestions } from '../contexts/QuestionsContext'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function Quiz() {
 
@@ -16,6 +16,28 @@ export default function Quiz() {
   const [isConfirmedQuestion, setIsConfirmedQuestion] = useState(false)
   const [isRigthQuestion, setIsRigthQuestion] = useState<boolean | null>(null)
   
+  
+  //depois tirar
+  const [seconds, setSeconds] = useState(30);
+
+  useEffect(() => {
+    // Se o tempo chegar a 0, paramos o timer
+    if (seconds === 0) return;
+
+    // Configura o intervalo para diminuir o contador a cada segundo
+    const intervalId = setInterval(() => {
+      setSeconds((prevSeconds) => prevSeconds - 1);
+    }, 1000);
+
+    // Limpa o intervalo ao desmontar o componente ou quando o timer atinge 0
+    return () => clearInterval(intervalId);
+  }, [seconds]);
+
+  useEffect(() => {
+    setSeconds(30)
+  },[questionIndex])
+
+
   const handleChooseQuestion = (question: '1' | '2' | '3' | '4') => {
     if(isChooseQuestion == question)
       setIsChooseQuestion('')
@@ -116,6 +138,8 @@ export default function Quiz() {
         onChange={() => {}}
         value={questions[questionIndex].fourthOption}
     />
+
+    <Heading as={'h6'} >Tempo: {seconds} segundos</Heading>
 
     { !!isRigthQuestion && (
       <TextCorrect>ACERTOU!!</TextCorrect>
